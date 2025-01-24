@@ -1,0 +1,148 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function isValidEmail(email) {
+      return email.matches('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$');
+    }
+    
+    function isValidPhone(phone) {
+      return phone.matches('^\\+?[0-9\\s-()]{8,}$');
+    }
+    
+    // Tasks collection rules
+    match /users/{userId}/tasks/{taskId} {
+      allow read: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId) && validateTaskData();
+      allow update: if isSignedIn() && isOwner(userId) && validateTaskUpdate();
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+    
+    // Task validation functions
+    function validateTaskData() {
+      let data = request.resource.data;
+      return data.title is string
+        && data.title.size() > 0
+        && data.dueDate is string
+        && data.completed is bool
+        && data.userId == request.auth.uid
+        && (
+          !data.keys().hasAny(['description']) || 
+          data.description is string
+        );
+    }
+    
+    function validateTaskUpdate() {
+      let incoming = request.resource.data;
+      let existing = resource.data;
+      
+      return incoming.userId == existing.userId
+        && incoming.title is string
+        && incoming.title.size() > 0
+        && incoming.dueDate is string
+        && incoming.completed is bool
+        && (
+          !incoming.keys().hasAny(['description']) || 
+          incoming.description is string
+        );
+    }
+    
+    // Contacts collection rules
+    match /users/{userId}/contacts/{contactId} {
+      allow read: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId) && validateContactData();
+      allow update: if isSignedIn() && isOwner(userId) && validateContactUpdate();
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+    
+    // Contact validation functions
+    function validateContactData() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['name'])
+        && data.name is string
+        && data.name.size() > 0
+        && (
+          !data.keys().hasAny(['email']) || 
+          (data.email is string && (data.email == '' || isValidEmail(data.email)))
+        )
+        && (
+          !data.keys().hasAny(['phone']) || 
+          (data.phone is string && (data.phone == '' || isValidPhone(data.phone)))
+        )
+        && (
+          !data.keys().hasAny(['business']) || 
+          (data.business is string)
+        )
+        && (
+          !data.keys().hasAny(['designation']) || 
+          (data.designation is string)
+        )
+        && (
+          !data.keys().hasAny(['district']) || 
+          (data.district is string)
+        )
+        && (
+          !data.keys().hasAny(['address']) || 
+          (data.address is string)
+        )
+        && data.userId == request.auth.uid;
+    }
+    
+    function validateContactUpdate() {
+      let incoming = request.resource.data;
+      let existing = resource.data;
+      
+      return incoming.userId == existing.userId
+        && incoming.name is string
+        && incoming.name.size() > 0
+        && (
+          !incoming.keys().hasAny(['email']) || 
+          (incoming.email is string && (incoming.email == '' || isValidEmail(incoming.email)))
+        )
+        && (
+          !incoming.keys().hasAny(['phone']) || 
+          (incoming.phone is string && (incoming.phone == '' || isValidPhone(incoming.phone)))
+        )
+        && (
+          !incoming.keys().hasAny(['business']) || 
+          (incoming.business is string)
+        )
+        && (
+          !incoming.keys().hasAny(['designation']) || 
+          (incoming.designation is string)
+        )
+        && (
+          !incoming.keys().hasAny(['district']) || 
+          (incoming.district is string)
+        )
+        && (
+          !incoming.keys().hasAny(['address']) || 
+          (incoming.address is string)
+        );
+    }
+    
+    // User profile rules
+    match /users/{userId}/profile {
+      allow read: if isSignedIn() && isOwner(userId);
+      allow write: if isSignedIn() && isOwner(userId) && validateProfileData();
+    }
+    
+    function validateProfileData() {
+      let data = request.resource.data;
+      return data.keys().hasOnly(['displayName', 'email', 'updatedAt'])
+        && data.displayName is string
+        && data.displayName.size() > 0
+        && data.email is string
+        && isValidEmail(data.email)
+        && (data.updatedAt is string || data.updatedAt == null);
+    }
+  }
+} 

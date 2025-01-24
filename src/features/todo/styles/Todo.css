@@ -1,0 +1,485 @@
+.todo-page {
+  padding: var(--spacing-sm);
+  position: relative;
+  min-height: calc(100vh - 70px);
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin: 0 auto var(--spacing-xl);
+  max-width: 900px;
+  padding: var(--spacing-sm);
+}
+
+.task-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--card-color);
+}
+
+.task-card.selected {
+  border-color: var(--card-color);
+  box-shadow: 0 0 0 1px var(--card-color);
+}
+
+.card-icon {
+  color: var(--card-color);
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.card-content h3 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.task-count {
+  background: var(--card-color);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* Add Task Button */
+.add-task-button {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.add-task-button:hover {
+  transform: scale(1.1);
+  background: var(--primary-color-dark);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-md);
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h2 {
+  margin-bottom: var(--spacing-lg);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-primary);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Date Picker Styles */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.date-picker-input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--background);
+}
+
+.react-datepicker {
+  font-family: inherit !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  background-color: var(--card-bg) !important;
+}
+
+.react-datepicker__header {
+  background-color: var(--background) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: var(--text-primary) !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.react-datepicker__time-container {
+  border-left: 1px solid var(--border-color) !important;
+}
+
+.react-datepicker__time {
+  background: var(--card-bg) !important;
+}
+
+.react-datepicker__time-box {
+  border-radius: 0 !important;
+}
+
+.react-datepicker__time-list-item {
+  color: var(--text-primary) !important;
+}
+
+.react-datepicker__time-list-item:hover {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: var(--primary-color) !important;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .react-datepicker {
+    font-size: 1rem !important;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    width: 2rem !important;
+    line-height: 2rem !important;
+    margin: 0.2rem !important;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1rem !important;
+  }
+
+  .react-datepicker__time-container {
+    width: 6rem !important;
+  }
+
+  .react-datepicker__time-container .react-datepicker__time-box {
+    width: 100% !important;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.cancel-button,
+.submit-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-button {
+  background: var(--background);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.submit-button {
+  background: var(--primary-color);
+  border: none;
+  color: white;
+}
+
+.cancel-button:hover {
+  background: var(--border-color);
+}
+
+.submit-button:hover {
+  background: var(--primary-color-dark);
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .task-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs);
+  }
+
+  .task-card {
+    min-height: 100px;
+    padding: var(--spacing-sm);
+  }
+
+  .card-icon {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .card-content h3 {
+    font-size: 0.9rem;
+  }
+
+  .task-count {
+    padding: 2px 6px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Task List Styles */
+.task-list {
+  margin-top: var(--spacing-lg);
+}
+
+.task-item {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.task-checkbox {
+  padding-top: 3px;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  width: 22px;
+  height: 22px;
+}
+
+.checkbox-wrapper input {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-wrapper input:checked + .checkmark {
+  background: var(--primary-color);
+}
+
+.checkbox-wrapper input:checked + .checkmark i {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.checkmark i {
+  color: white;
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+
+.task-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-left: auto;
+}
+
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  padding: var(--spacing-xs);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.edit-button:hover {
+  color: var(--primary-color);
+}
+
+.delete-button:hover {
+  color: var(--error-color);
+}
+
+.task-item.completed {
+  opacity: 0.7;
+}
+
+.task-item.completed .task-content {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.animating .checkmark {
+  transform: scale(1.2);
+}
+
+.task-content {
+  flex: 1;
+}
+
+.task-content h3 {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1.1rem;
+}
+
+.task-content p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.task-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.due-date {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--text-secondary);
+}
+
+.empty-state i {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--text-secondary);
+}
+
+.error-message {
+  background-color: var(--error-bg);
+  color: var(--error-color);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-md);
+  font-size: 0.9rem;
+}
+
+/* Add these variables to your root CSS */
+:root {
+  --error-bg: #FEE2E2;
+  --error-color: #DC2626;
+} 

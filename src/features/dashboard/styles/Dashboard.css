@@ -1,0 +1,576 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Dashboard Layout */
+.dashboard-page {
+  padding: var(--spacing-md);
+  animation: fadeIn 0.5s ease;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Welcome Section */
+.welcome-section {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+}
+
+.welcome-section:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.welcome-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.welcome-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  position: relative;
+}
+
+.welcome-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.greeting-highlight {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  color: var(--primary-color);
+  font-weight: 600;
+  text-shadow: none;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.greeting-highlight::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: rgba(144, 205, 244, 0.15);
+  z-index: -1;
+  transform: skewX(-15deg);
+}
+
+.greeting-name {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Dark mode specific adjustments */
+[data-theme='dark'] .greeting-highlight {
+  color: #90cdf4;
+  text-shadow: 0 0 8px rgba(144, 205, 244, 0.3);
+}
+
+[data-theme='dark'] .greeting-name {
+  color: #f0f4f8;
+}
+
+[data-theme='dark'] .greeting-highlight::before {
+  background: rgba(144, 205, 244, 0.2);
+}
+
+/* Ensure punctuation marks are visible */
+.greeting-punctuation {
+  color: var(--text-primary);
+}
+
+.dates-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}
+
+.date-display, .islamic-date {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--bg-color);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+}
+
+.date-display:hover, .islamic-date:hover {
+  transform: translateX(5px);
+  background: var(--card-hover-bg);
+}
+
+.date-display i, .islamic-date i {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.weather-prayer-info {
+  background: var(--card-bg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  width: 100%;
+  max-width: 350px;
+  transition: all 0.3s ease;
+}
+
+.weather-prayer-info:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.sun-info {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  margin: var(--spacing-sm) 0;
+  background: var(--bg-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sun-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.sun-icon {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.weather-display {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.temperature {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.weather-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.feels-like {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.weather-forecast {
+  margin-top: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.weather-forecast h4 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+}
+
+.forecast-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--bg-color);
+  border-radius: var(--border-radius);
+}
+
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  transition: all 0.3s ease;
+}
+
+.forecast-item:hover {
+  transform: translateY(-2px);
+  background: var(--card-hover-bg);
+  border-radius: var(--border-radius);
+}
+
+.forecast-time {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.forecast-temp {
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.next-prayer {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-color-dark));
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Add the shine effect */
+.next-prayer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.prayer-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.prayer-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.prayer-time {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.prayer-icon {
+  font-size: 1.5rem;
+  color: white;
+  animation: pulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.stats-overview {
+  margin-top: var(--spacing-xl);
+}
+
+.stats-overview h2 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow-soft);
+  border-left: 4px solid var(--stat-color);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--stat-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.stat-info h3 {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.dashboard-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.dashboard-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-sidebar {
+    order: -1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-page {
+    padding: var(--spacing-sm);
+  }
+
+  .dashboard-grid {
+    gap: var(--spacing-md);
+  }
+
+  .welcome-section {
+    padding: var(--spacing-sm);
+  }
+
+  .welcome-section h1 {
+    font-size: 1.25rem;
+  }
+  
+  .date-weather-container {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .weather-prayer-info {
+    max-width: 100%;
+  }
+
+  .weather-display {
+    flex-wrap: wrap;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .stat-card {
+    padding: var(--spacing-sm);
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .next-prayer {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .prayer-time {
+    font-size: 1rem;
+  }
+
+  .prayer-label {
+    font-size: 0.8rem;
+  }
+
+  .prayer-icon {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dashboard-page {
+    padding: var(--spacing-xs);
+  }
+
+  .weather-prayer-info {
+    font-size: 0.9rem;
+  }
+
+  .temperature {
+    font-size: 1.1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* Add to your existing Dashboard.css */
+.welcome-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.weather-description {
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.feels-like {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.hadith-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  box-shadow: var(--shadow-soft);
+}
+
+.hadith-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  color: var(--primary-color);
+}
+
+.hadith-content {
+  margin: var(--spacing-md) 0;
+}
+
+.hadith-text {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-md);
+  text-align: right;
+  direction: rtl;
+}
+
+.hadith-translation {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.hadith-footer {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+  .welcome-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+
+  .weather-display {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.dashboard-content {
+  width: 100%;
+}
+
+@keyframes weatherFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+} 

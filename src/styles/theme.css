@@ -1,0 +1,52 @@
+:root {
+  /* Light theme variables */
+  --primary-light: #2563eb;
+  --background-light: #f5f6fa;
+  --card-light: #ffffff;
+  --text-primary-light: #1e293b;
+  --text-secondary-light: #64748b;
+
+  /* Dark theme variables */
+  --primary-dark: #3b82f6;
+  --background-dark: #1a1a1a;
+  --card-dark: #2d2d2d;
+  --text-primary-dark: #e2e8f0;
+  --text-secondary-dark: #94a3b8;
+
+  /* Common variables */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+
+  /* Add these if missing */
+  --success-color: #10B981;
+  --success-color-light: rgba(16, 185, 129, 0.1);
+  --error-color: #EF4444;
+  --error-color-light: rgba(239, 68, 68, 0.1);
+  --error-color-dark: #DC2626;
+  --input-bg: var(--card-bg);
+}
+
+.app {
+  min-height: 100vh;
+  transition: var(--transition);
+}
+
+.app.light {
+  --primary: var(--primary-light);
+  --background: var(--background-light);
+  --card: var(--card-light);
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+}
+
+.app.dark {
+  --primary: var(--primary-dark);
+  --background: var(--background-dark);
+  --card: var(--card-dark);
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+} 

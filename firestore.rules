@@ -1,0 +1,96 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    // User profile rules
+    match /users/{userId}/profile {
+      allow read: if isAuthenticated() && isOwner(userId);
+      allow write: if isAuthenticated() && isOwner(userId) && 
+        request.resource.data.keys().hasOnly(['displayName', 'email', 'updatedAt']) &&
+        request.resource.data.displayName is string &&
+        request.resource.data.displayName.size() > 0;
+    }
+    
+    // Task rules with updated validation
+    match /users/{userId}/tasks/{taskId} {
+      allow read: if isAuthenticated() && isOwner(userId);
+      allow create: if isAuthenticated() && isOwner(userId) && isValidTask();
+      allow update: if isAuthenticated() && isOwner(userId) && hasOnlyAllowedTaskUpdates();
+      allow delete: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // Contact rules with validation
+    match /users/{userId}/contacts/{contactId} {
+      allow read: if isAuthenticated() && isOwner(userId);
+      allow create: if isAuthenticated() && isOwner(userId) && isValidContact();
+      allow update: if isAuthenticated() && isOwner(userId) && isValidContactUpdate();
+      allow delete: if isAuthenticated() && isOwner(userId);
+    }
+    
+    function isValidContact() {
+      let incoming = request.resource.data;
+      return incoming.name is string &&
+             incoming.name.size() > 0 &&
+             (incoming.business == null || incoming.business is string) &&
+             (incoming.designation == null || incoming.designation is string) &&
+             (incoming.phone == null || incoming.phone is string) &&
+             (incoming.email == null || incoming.email is string) &&
+             (incoming.district == null || incoming.district is string) &&
+             (incoming.address == null || incoming.address is string) &&
+             incoming.userId == request.auth.uid &&
+             (incoming.createdAt is timestamp || incoming.createdAt == null) &&
+             (incoming.updatedAt is timestamp || incoming.updatedAt == null);
+    }
+    
+    function isValidContactUpdate() {
+      let incoming = request.resource.data;
+      return incoming.name is string &&
+             incoming.name.size() > 0 &&
+             (incoming.business == null || incoming.business is string) &&
+             (incoming.designation == null || incoming.designation is string) &&
+             (incoming.phone == null || incoming.phone is string) &&
+             (incoming.email == null || incoming.email is string) &&
+             (incoming.district == null || incoming.district is string) &&
+             (incoming.address == null || incoming.address is string) &&
+             incoming.userId == request.auth.uid &&
+             (incoming.createdAt is timestamp || incoming.createdAt == null) &&
+             (incoming.updatedAt is timestamp || incoming.updatedAt == null);
+    }
+    
+    function isValidTask() {
+      let incoming = request.resource.data;
+      return incoming.title is string &&
+             incoming.title.size() > 0 &&
+             incoming.description is string &&
+             incoming.dueDate is string &&
+             incoming.completed is bool &&
+             incoming.userId == request.auth.uid &&
+             (incoming.createdAt is timestamp || incoming.createdAt == null) &&
+             (incoming.updatedAt is timestamp || incoming.updatedAt == null);
+    }
+    
+    function hasOnlyAllowedTaskUpdates() {
+      let incoming = request.resource.data;
+      let existing = resource.data;
+      let diff = incoming.diff(existing);
+      return diff.affectedKeys()
+        .hasOnly(['title', 'description', 'dueDate', 'completed', 'updatedAt']) &&
+        incoming.userId == existing.userId &&
+        incoming.title is string &&
+        incoming.title.size() > 0 &&
+        incoming.description is string &&
+        incoming.dueDate is string &&
+        incoming.completed is bool &&
+        (incoming.updatedAt is timestamp || incoming.updatedAt == null);
+    }
+  }
+} 

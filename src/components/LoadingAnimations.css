@@ -1,0 +1,141 @@
+.pulse-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+}
+
+.pulse-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color);
+  border-radius: 50%;
+}
+
+.spinner-loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--background);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  margin: 20px auto;
+}
+
+.hadith-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+.book-spine {
+  width: 60px;
+  height: 80px;
+  background: var(--primary-color);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.arabic-text {
+  color: white;
+  font-size: 1.5rem;
+  font-family: 'Traditional Arabic', serif;
+}
+
+.prayer-times-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.mosque-silhouette {
+  width: 80px;
+  height: 80px;
+  background: var(--primary-color);
+  mask: url('../assets/mosque-icon.svg') no-repeat center;
+  -webkit-mask: url('../assets/mosque-icon.svg') no-repeat center;
+}
+
+.weather-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+.sun-moon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.3);
+}
+
+.fullscreen-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(var(--background-rgb), 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.loader-icon {
+  width: 80px;
+  height: 80px;
+  border: 4px solid transparent;
+  border-top: 4px solid var(--primary-color);
+  border-right: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.loading-dots::after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60% { content: '...'; }
+  80%, 100% { content: ''; }
+}
+
+@media (max-width: 768px) {
+  .loader-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .loader-text {
+    font-size: 1rem;
+  }
+} 

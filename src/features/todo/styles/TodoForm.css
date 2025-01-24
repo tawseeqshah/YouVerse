@@ -1,0 +1,88 @@
+/* DateTime Picker Styles */
+.datetime-picker {
+  width: 100%;
+  background: var(--background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--text-primary);
+}
+
+.datetime-picker input {
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  padding: 4px;
+  width: 100%;
+}
+
+.datetime-picker button {
+  color: var(--text-primary);
+}
+
+.react-calendar {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: inherit;
+}
+
+.react-calendar__tile {
+  color: var(--text-primary);
+  padding: 10px;
+}
+
+.react-calendar__tile--active {
+  background: var(--primary-color) !important;
+  color: white;
+}
+
+.react-calendar__tile--now {
+  background: var(--background);
+}
+
+.react-calendar__navigation button {
+  color: var(--text-primary);
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: var(--primary-color);
+}
+
+.react-datetime-picker__wrapper {
+  border: none !important;
+}
+
+.react-datetime-picker__inputGroup {
+  padding: 4px;
+}
+
+.react-datetime-picker__button {
+  padding: 4px;
+}
+
+.react-datetime-picker__button:enabled:hover svg {
+  stroke: var(--primary-color);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .react-calendar {
+    width: 100% !important;
+    max-width: 350px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 1000;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .react-calendar__tile {
+    padding: 14px 6px;
+  }
+} 

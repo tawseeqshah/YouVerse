@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "322217619569",
+    "project_id": "youverse-40ca6",
+    "storage_bucket": "youverse-40ca6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322217619569:android:a9dc5593670d4930d9abd0",
+        "android_client_info": {
+          "package_name": "com.youverse.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChNiUc0EG2wNe_AHQU3QH6EkIWypQKuX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
